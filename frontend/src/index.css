@@ -393,7 +393,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   margin-right: 1rem;
   position: relative;
-  left: -75px;
+  left: 0 !important;
   flex-shrink: 0;
 }
 
@@ -409,19 +409,37 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .header-brand-logo-img {
-  height: 52px;
+  height: 48px;
+  max-height: 48px;
   max-width: 240px;
   width: auto;
   object-fit: contain;
   display: block;
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
-  transition: opacity 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 @media (max-width: 992px) {
+  .header-brand-wrap {
+    left: 0 !important;
+    margin-right: 0.5rem;
+  }
   .header-brand-logo-img {
-    height: 48px;
-    max-width: 200px;
+    height: 40px;
+    max-height: 40px;
+    max-width: 190px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-brand-wrap {
+    left: 0 !important;
+    margin-right: 0.35rem;
+  }
+  .header-brand-logo-img {
+    height: 36px;
+    max-height: 36px;
+    max-width: 155px;
   }
 }
 
@@ -4221,56 +4239,91 @@ h1, h2, h3, h4, h5, h6 {
 /* Mobile Screens (< 768px) */
 @media (max-width: 768px) {
   html {
-    font-size: 15px;
+    font-size: 16px;
+  }
+
+  body {
+    font-size: 1rem;
+    line-height: 1.65;
   }
 
   .container {
-    padding: 0 0.85rem !important;
+    padding: 0 1rem !important;
   }
 
-  /* Header Branding */
+  /* Header Branding - Crystal Clear & Fully Visible */
+  .header-brand-wrap {
+    left: 0 !important;
+    margin-right: 0.5rem !important;
+  }
+
   .header-brand-logo-img {
-    max-height: 34px !important;
+    height: 42px !important;
+    max-height: 42px !important;
+    max-width: 200px !important;
+    width: auto !important;
   }
 
   .primary-nav .container {
-    padding: 0.5rem 0.85rem !important;
+    padding: 0.5rem 1rem !important;
   }
 
-  /* Hero Section Mobile */
+  /* Hero Section Mobile Typography */
   .hero-slide {
-    min-height: 420px !important;
-    padding: 2.5rem 1rem !important;
+    min-height: 440px !important;
+    padding: 3rem 1.25rem !important;
   }
 
   .hero-content h1 {
-    font-size: 1.75rem !important;
+    font-size: 2rem !important;
     line-height: 1.25 !important;
+    font-weight: 800 !important;
   }
 
   .hero-content p {
-    font-size: 0.95rem !important;
+    font-size: 1.05rem !important;
+    line-height: 1.6 !important;
   }
 
   .hero-actions {
     flex-direction: column !important;
     width: 100% !important;
+    gap: 0.75rem !important;
   }
 
   .hero-actions .btn {
     width: 100% !important;
     justify-content: center !important;
+    font-size: 1rem !important;
+    padding: 0.85rem 1.5rem !important;
   }
 
-  /* Section Titles */
+  /* Section Titles & Headings */
   .section-title,
   .about-section-title {
-    font-size: 1.75rem !important;
+    font-size: 1.95rem !important;
+    line-height: 1.3 !important;
+    font-weight: 800 !important;
   }
 
   .section-subtitle,
   .about-section-subtitle {
-    font-size: 0.92rem !important;
+    font-size: 1rem !important;
+    line-height: 1.65 !important;
+  }
+
+  /* Card Headings & Body Text */
+  .card-title,
+  h3, h4 {
+    font-size: 1.25rem !important;
+  }
+
+  p, span, li, a, label, input, select, textarea {
+    font-size: 1rem !important;
+  }
+
+  .text-sm, small, .meta-text {
+    font-size: 0.875rem !important;
   }
 
   /* All Multi-Column Grids collapse to 1 Column on Mobile */
@@ -4282,7 +4335,7 @@ h1, h2, h3, h4, h5, h6 {
   .news-grid,
   .documents-grid {
     grid-template-columns: 1fr !important;
-    gap: 1rem !important;
+    gap: 1.25rem !important;
   }
 
   /* Responsive Form Grids */
@@ -4290,7 +4343,7 @@ h1, h2, h3, h4, h5, h6 {
   .form-grid-3col,
   form div[style*="gridTemplateColumns"] {
     grid-template-columns: 1fr !important;
-    gap: 0.85rem !important;
+    gap: 1rem !important;
   }
 
   /* Horizontal Scroll for Data Tables */
@@ -4313,7 +4366,7 @@ h1, h2, h3, h4, h5, h6 {
   div[style*="position: fixed"] > div[style*="max-width"] {
     max-width: 95vw !important;
     width: 95vw !important;
-    padding: 1.25rem !important;
+    padding: 1.5rem 1.25rem !important;
     max-height: 90vh !important;
   }
 
@@ -4322,7 +4375,7 @@ h1, h2, h3, h4, h5, h6 {
   div[style*="justifyContent: 'space-between'"] {
     flex-direction: column !important;
     align-items: stretch !important;
-    gap: 0.85rem !important;
+    gap: 1rem !important;
   }
 
   /* Button Stacks */
@@ -4340,50 +4393,62 @@ h1, h2, h3, h4, h5, h6 {
   .interactive-map-container,
   div[style*="height: '450px'"],
   div[style*="height: '420px'"] {
-    height: 320px !important;
+    height: 340px !important;
   }
 
   /* Floating Quick Access on Mobile */
   .floating-quick-access {
-    bottom: 1rem !important;
-    right: 1rem !important;
-    transform: scale(0.9) !important;
+    bottom: 1.25rem !important;
+    right: 1.25rem !important;
+    transform: scale(0.95) !important;
   }
 
   /* Tabs Horizontal Scroll Strip */
   div[style*="borderBottom: '2px solid"] {
     overflow-x: auto !important;
     flex-wrap: nowrap !important;
-    padding-bottom: 0.5rem !important;
+    padding-bottom: 0.65rem !important;
     -webkit-overflow-scrolling: touch !important;
   }
 
   div[style*="borderBottom: '2px solid"] button {
     white-space: nowrap !important;
     flex-shrink: 0 !important;
+    font-size: 0.95rem !important;
+    padding: 0.65rem 1.1rem !important;
   }
 }
 
 /* Small Mobile Screens (< 480px) */
 @media (max-width: 480px) {
   html {
-    font-size: 14px;
+    font-size: 16px;
+  }
+
+  .header-brand-wrap {
+    left: 0 !important;
   }
 
   .header-brand-logo-img {
-    max-height: 30px !important;
+    height: 38px !important;
+    max-height: 38px !important;
+    max-width: 170px !important;
   }
 
   .section-title {
-    font-size: 1.5rem !important;
+    font-size: 1.75rem !important;
+  }
+
+  .hero-content h1 {
+    font-size: 1.85rem !important;
   }
 
   .hero-slide {
-    min-height: 380px !important;
+    min-height: 400px !important;
   }
 
   .btn {
-    padding: 0.6rem 1rem !important;
-    font-size: 0.85rem !important;
+    padding: 0.75rem 1.25rem !important;
+    font-size: 0.95rem !important;
   }
 }
