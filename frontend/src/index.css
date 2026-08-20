@@ -4156,9 +4156,234 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* ==========================================================================
+   MULTI-DEVICE RESPONSIVE SUITE (DESKTOP, TABLET & MOBILE VIEWPORTS)
+   ========================================================================== */
 
+/* Tablet & Smaller Screens (< 1024px) */
+@media (max-width: 1024px) {
+  /* Navbar & Header */
+  .primary-nav .nav-menu {
+    display: none !important;
+  }
 
+  .mobile-nav-toggle-btn {
+    display: inline-flex !important;
+  }
 
+  .header-brand-logo-img {
+    max-height: 40px !important;
+    width: auto !important;
+  }
 
+  .auth-btn-label {
+    display: none !important;
+  }
 
+  .logout-btn-label {
+    display: none !important;
+  }
 
+  .nav-admin-btn {
+    padding: 0.45rem 0.65rem !important;
+  }
+
+  .top-bar-inner {
+    flex-direction: column !important;
+    gap: 0.4rem !important;
+    padding: 0.4rem 1rem !important;
+  }
+
+  .top-bar-info {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0.75rem !important;
+  }
+
+  /* Grid Layouts for Tablet */
+  .stats-grid,
+  .quick-services-grid,
+  .departments-grid,
+  .officers-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Hero Section */
+  .hero-content h1 {
+    font-size: 2.2rem !important;
+  }
+  
+  .hero-slide {
+    min-height: 480px !important;
+  }
+}
+
+/* Mobile Screens (< 768px) */
+@media (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+
+  .container {
+    padding: 0 0.85rem !important;
+  }
+
+  /* Header Branding */
+  .header-brand-logo-img {
+    max-height: 34px !important;
+  }
+
+  .primary-nav .container {
+    padding: 0.5rem 0.85rem !important;
+  }
+
+  /* Hero Section Mobile */
+  .hero-slide {
+    min-height: 420px !important;
+    padding: 2.5rem 1rem !important;
+  }
+
+  .hero-content h1 {
+    font-size: 1.75rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .hero-content p {
+    font-size: 0.95rem !important;
+  }
+
+  .hero-actions {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  .hero-actions .btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* Section Titles */
+  .section-title,
+  .about-section-title {
+    font-size: 1.75rem !important;
+  }
+
+  .section-subtitle,
+  .about-section-subtitle {
+    font-size: 0.92rem !important;
+  }
+
+  /* All Multi-Column Grids collapse to 1 Column on Mobile */
+  .stats-grid,
+  .quick-services-grid,
+  .departments-grid,
+  .officers-grid,
+  .events-grid,
+  .news-grid,
+  .documents-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  /* Responsive Form Grids */
+  .form-grid-2col,
+  .form-grid-3col,
+  form div[style*="gridTemplateColumns"] {
+    grid-template-columns: 1fr !important;
+    gap: 0.85rem !important;
+  }
+
+  /* Horizontal Scroll for Data Tables */
+  .table-responsive,
+  div[style*="overflowX: 'auto'"],
+  div[style*="overflow-x: auto"] {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    margin-bottom: 1rem !important;
+    border-radius: 8px !important;
+  }
+
+  table {
+    min-width: 600px !important;
+  }
+
+  /* Modals on Mobile */
+  div[style*="position: 'fixed'"] > div[style*="maxWidth"],
+  div[style*="position: fixed"] > div[style*="max-width"] {
+    max-width: 95vw !important;
+    width: 95vw !important;
+    padding: 1.25rem !important;
+    max-height: 90vh !important;
+  }
+
+  /* Dashboard Action Bars */
+  .dashboard-header-flex,
+  div[style*="justifyContent: 'space-between'"] {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.85rem !important;
+  }
+
+  /* Button Stacks */
+  .btn-group-responsive {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  .btn-group-responsive button,
+  .btn-group-responsive a {
+    width: 100% !important;
+  }
+
+  /* Map Container */
+  .interactive-map-container,
+  div[style*="height: '450px'"],
+  div[style*="height: '420px'"] {
+    height: 320px !important;
+  }
+
+  /* Floating Quick Access on Mobile */
+  .floating-quick-access {
+    bottom: 1rem !important;
+    right: 1rem !important;
+    transform: scale(0.9) !important;
+  }
+
+  /* Tabs Horizontal Scroll Strip */
+  div[style*="borderBottom: '2px solid"] {
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    padding-bottom: 0.5rem !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  div[style*="borderBottom: '2px solid"] button {
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+}
+
+/* Small Mobile Screens (< 480px) */
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+
+  .header-brand-logo-img {
+    max-height: 30px !important;
+  }
+
+  .section-title {
+    font-size: 1.5rem !important;
+  }
+
+  .hero-slide {
+    min-height: 380px !important;
+  }
+
+  .btn {
+    padding: 0.6rem 1rem !important;
+    font-size: 0.85rem !important;
+  }
+}

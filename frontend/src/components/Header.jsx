@@ -1,8 +1,8 @@
 import React from 'react';
-import { ShieldCheck, ChevronDown, LogOut, Lock } from 'lucide-react';
+import { ShieldCheck, ChevronDown, LogOut, Lock, Menu } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
-export const Header = ({ currentPath = '/', onNavigate }) => {
+export const Header = ({ currentPath = '/', onNavigate, onToggleMobileMenu }) => {
   const { user, isAuthenticated, logout } = useAuth();
 
   const navItems = [
@@ -32,8 +32,6 @@ export const Header = ({ currentPath = '/', onNavigate }) => {
     { label: 'News', path: '/news' },
     { label: 'Contact', path: '/contact' }
   ];
-
-  const isAdminActive = currentPath.startsWith('/admin');
 
   return (
     <header className="main-header" style={{ borderTop: 'none' }}>
@@ -98,7 +96,7 @@ export const Header = ({ currentPath = '/', onNavigate }) => {
             })}
           </ul>
 
-          {/* Dedicated Dynamic Auth Button on the Right */}
+          {/* Dedicated Dynamic Auth Button & Mobile Toggle on the Right */}
           <div className="nav-admin-btn-wrap" style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
             {isAuthenticated ? (
               <>
@@ -114,25 +112,25 @@ export const Header = ({ currentPath = '/', onNavigate }) => {
                       user?.role === 'officer' ? '/officer-dashboard' : '/super-admin-dashboard';
                     onNavigate(targetDashboard);
                   }}
-                  className="nav-admin-btn active"
+                  className="nav-admin-btn active desktop-auth-btn"
                   style={{ background: '#008b95', color: 'white', borderColor: '#008b95', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
                 >
                   <ShieldCheck size={16} />
-                  <span>
-                    {user?.role === 'citizen' ? 'Citizen Dashboard' :
-                     user?.role === 'officer' ? 'Officer Dashboard' : 'Admin Dashboard'}
+                  <span className="auth-btn-label">
+                    {user?.role === 'citizen' ? 'Citizen' :
+                     user?.role === 'officer' ? 'Officer' : 'Admin'}
                   </span>
                 </a>
 
                 <button
                   type="button"
                   onClick={logout}
-                  className="nav-admin-btn"
+                  className="nav-admin-btn desktop-auth-btn"
                   style={{ background: 'rgba(239, 68, 68, 0.15)', color: '#fca5a5', borderColor: 'rgba(239, 68, 68, 0.35)', cursor: 'pointer' }}
                   title="Logout of session"
                 >
                   <LogOut size={15} />
-                  <span>Logout</span>
+                  <span className="logout-btn-label">Logout</span>
                 </button>
               </>
             ) : (
@@ -142,16 +140,38 @@ export const Header = ({ currentPath = '/', onNavigate }) => {
                   e.preventDefault();
                   onNavigate('/login');
                 }}
-                className="nav-admin-btn"
+                className="nav-admin-btn desktop-auth-btn"
                 style={{ background: '#008b95', color: 'white', borderColor: '#008b95', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
               >
                 <Lock size={15} />
-                <span>Portal Login</span>
+                <span>Login</span>
               </a>
             )}
+
+            {/* Mobile & Tablet Hamburger Menu Toggle */}
+            <button
+              type="button"
+              onClick={onToggleMobileMenu}
+              className="mobile-nav-toggle-btn"
+              aria-label="Open Navigation Menu"
+              style={{
+                display: 'none',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: '#f1f5f9',
+                color: '#0b2f45',
+                border: '1px solid #cbd5e1',
+                padding: '0.45rem',
+                borderRadius: '8px',
+                cursor: 'pointer'
+              }}
+            >
+              <Menu size={22} />
+            </button>
           </div>
         </div>
       </nav>
     </header>
   );
 };
+
