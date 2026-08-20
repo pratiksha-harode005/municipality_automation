@@ -2,7 +2,7 @@ import os
 from pptx import Presentation
 from pptx.util import Inches, Pt
 from pptx.dml.color import RGBColor
-from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
+from pptx.enum.text import PP_ALIGN
 from pptx.enum.shapes import MSO_SHAPE
 
 def create_deck():
@@ -12,23 +12,24 @@ def create_deck():
     prs.slide_height = Inches(7.5)
     blank_layout = prs.slide_layouts[6]
 
-    # Color Palette Constants
-    COLOR_NAVY = RGBColor(11, 47, 69)        # #0B2F45
-    COLOR_DARK_NAVY = RGBColor(7, 31, 43)   # #071F2B
-    COLOR_CYAN = RGBColor(0, 139, 149)       # #008B95
-    COLOR_LIGHT_CYAN = RGBColor(56, 189, 248)# #38BDF8
-    COLOR_GOLD = RGBColor(217, 119, 6)       # #D97706
+    # Clean, harmonious color palette
+    COLOR_NAVY = RGBColor(11, 47, 69)        # #0B2F45 (Deep Royal Navy)
+    COLOR_CYAN = RGBColor(0, 139, 149)       # #008B95 (Municipal Teal/Cyan)
+    COLOR_LIGHT_CYAN = RGBColor(56, 189, 248)# #38BDF8 (Sky Blue)
+    COLOR_GOLD = RGBColor(217, 119, 6)       # #D97706 (Amber Gold)
     COLOR_WHITE = RGBColor(255, 255, 255)
-    COLOR_LIGHT_BG = RGBColor(248, 250, 252) # #F8FAFC
     COLOR_CARD_BG = RGBColor(255, 255, 255)
     COLOR_CARD_BORDER = RGBColor(226, 232, 240)
-    COLOR_TEXT_MAIN = RGBColor(15, 23, 42)
+    COLOR_TEXT_MAIN = RGBColor(30, 41, 59)   # Slate 800
     COLOR_TEXT_MUTED = RGBColor(100, 116, 139)
-    COLOR_EMERALD = RGBColor(16, 185, 129)
+    COLOR_SUCCESS_BG = RGBColor(240, 253, 244)
+    COLOR_SUCCESS_BORDER = RGBColor(187, 247, 208)
+    COLOR_ALERT_BG = RGBColor(254, 242, 242)
+    COLOR_ALERT_BORDER = RGBColor(254, 202, 202)
 
-    def add_header(slide, title_text, category_text="MUNICIPALITY AUTOMATION SUITE"):
+    def add_header(slide, title_text, category_text="MUNICIPALITY AUTOMATION SYSTEM"):
         # Header category pill
-        cat_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.45), Inches(11.733), Inches(0.35))
+        cat_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.4), Inches(11.733), Inches(0.32))
         tf_cat = cat_box.text_frame
         tf_cat.word_wrap = True
         tf_cat.margin_left = tf_cat.margin_top = tf_cat.margin_right = tf_cat.margin_bottom = 0
@@ -39,19 +40,19 @@ def create_deck():
         p_cat.font.color.rgb = COLOR_CYAN
 
         # Title
-        title_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.75), Inches(11.733), Inches(0.65))
+        title_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.72), Inches(11.733), Inches(0.65))
         tf_title = title_box.text_frame
         tf_title.word_wrap = True
         tf_title.margin_left = tf_title.margin_top = tf_title.margin_right = tf_title.margin_bottom = 0
         p_title = tf_title.paragraphs[0]
         p_title.text = title_text
-        p_title.font.size = Pt(24)
+        p_title.font.size = Pt(23)
         p_title.font.bold = True
         p_title.font.color.rgb = COLOR_NAVY
 
         # Subtle decorative divider line
         line = slide.shapes.add_shape(
-            MSO_SHAPE.RECTANGLE, Inches(0.8), Inches(1.45), Inches(11.733), Inches(0.02)
+            MSO_SHAPE.RECTANGLE, Inches(0.8), Inches(1.42), Inches(11.733), Inches(0.02)
         )
         line.fill.solid()
         line.fill.fore_color.rgb = COLOR_CYAN
@@ -66,12 +67,11 @@ def create_deck():
 
         tf = card.text_frame
         tf.word_wrap = True
-        tf.margin_left = Inches(0.25)
-        tf.margin_right = Inches(0.25)
+        tf.margin_left = Inches(0.24)
+        tf.margin_right = Inches(0.24)
         tf.margin_top = Inches(0.22)
         tf.margin_bottom = Inches(0.22)
 
-        # Optional Badge
         if badge:
             p_badge = tf.paragraphs[0]
             p_badge.text = badge.upper()
@@ -90,15 +90,15 @@ def create_deck():
 
         for item in items:
             p_item = tf.add_paragraph()
-            p_item.text = f"• {item}"
-            p_item.font.size = Pt(11)
-            p_item.font.color.rgb = COLOR_TEXT_MAIN if bg_color == COLOR_WHITE else COLOR_WHITE
-            p_item.space_after = Pt(4)
+            p_item.text = f"•  {item}"
+            p_item.font.size = Pt(11.5)
+            p_item.font.color.rgb = COLOR_TEXT_MAIN if bg_color == COLOR_WHITE or bg_color == COLOR_SUCCESS_BG or bg_color == COLOR_ALERT_BG else COLOR_WHITE
+            p_item.space_after = Pt(5)
 
         return card
 
     # ==========================================
-    # SLIDE 1: TITLE SLIDE (Dark Premium Hero Theme)
+    # SLIDE 1: TITLE SLIDE
     # ==========================================
     s1 = prs.slides.add_slide(blank_layout)
     bg1 = s1.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(13.333), Inches(7.5))
@@ -106,427 +106,509 @@ def create_deck():
     bg1.fill.fore_color.rgb = COLOR_NAVY
     bg1.line.fill.background()
 
-    # Decorative Cyan Accent Strip
     strip = s1.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(0.35), Inches(7.5))
     strip.fill.solid()
     strip.fill.fore_color.rgb = COLOR_CYAN
     strip.line.fill.background()
 
-    # Title Text Frame
     tb1 = s1.shapes.add_textbox(Inches(1.2), Inches(1.3), Inches(11.0), Inches(4.8))
     tf1 = tb1.text_frame
     tf1.word_wrap = True
 
     p1 = tf1.paragraphs[0]
-    p1.text = "🏛️ GOVERNMENT & MUNICIPAL CORPORATION AUTOMATION PORTAL"
+    p1.text = "🏛️ MUNICIPAL CORPORATION AUTOMATION SYSTEM"
     p1.font.size = Pt(13)
     p1.font.bold = True
     p1.font.color.rgb = COLOR_LIGHT_CYAN
     p1.space_after = Pt(14)
 
     p2 = tf1.add_paragraph()
-    p2.text = "Comprehensive Digital Governance & Municipal Operations Suite"
+    p2.text = "Digital E-Governance & Civic Services Platform"
     p2.font.size = Pt(32)
     p2.font.bold = True
     p2.font.color.rgb = COLOR_WHITE
     p2.space_after = Pt(16)
 
     p3 = tf1.add_paragraph()
-    p3.text = "End-to-End E-Governance Platform for Citizens, Municipal Officers & Administrators with Cloud PostgreSQL, Cloudinary Media CDN, and Multi-Device Responsive Architecture."
+    p3.text = "A modern, complete digital solution designed to make municipal services fast, transparent, and accessible for Citizens, Officers, and City Administrators."
     p3.font.size = Pt(14)
     p3.font.color.rgb = RGBColor(203, 213, 225)
-    p3.space_after = Pt(36)
+    p3.space_after = Pt(32)
 
-    # Tech Stack Badges
     p4 = tf1.add_paragraph()
-    p4.text = "⚡ TECH STACK:  React 18  |  Vite  |  Django REST Framework  |  Supabase PostgreSQL  |  Cloudinary CDN  |  Vercel"
-    p4.font.size = Pt(12)
+    p4.text = "⚡ Key Highlights:  100% Online  |  Photo Evidence  |  Live Tracking  |  Mobile & Laptop Friendly"
+    p4.font.size = Pt(12.5)
     p4.font.bold = True
     p4.font.color.rgb = COLOR_GOLD
 
     # ==========================================
-    # SLIDE 2: EXECUTIVE SUMMARY & PROBLEM STATEMENT
+    # SLIDE 2: WHAT IS THIS PROJECT?
     # ==========================================
     s2 = prs.slides.add_slide(blank_layout)
-    add_header(s2, "Executive Summary & Problem Statement", "PROJECT BACKGROUND")
+    add_header(s2, "What is This Project? (Simple Overview)", "PROJECT INTRODUCTION")
 
-    add_card(s2, Inches(0.8), Inches(1.8), Inches(5.6), Inches(5.0),
-             "Traditional Municipal Challenges",
+    add_card(s2, Inches(0.8), Inches(1.75), Inches(5.6), Inches(5.1),
+             "What is this Platform?",
              [
-                 "Manual paper-based grievance submission with no tracking.",
-                 "High turnaround delays for civic approvals (birth/death, permits, water).",
-                 "Lack of photo & GPS geotagging evidence for road & streetlight issues.",
-                 "Zero transparency into municipal officer review workflows.",
-                 "Siloed departmental data leading to bureaucratic bottlenecks.",
-                 "Non-responsive legacy portals failing on mobile/tablet viewports."
+                 "A complete digital website built for Municipal Corporations (like BBMP).",
+                 "Connects citizens directly with city government departments online.",
+                 "Citizens can apply for civic services and report local city issues from home.",
+                 "Municipal officers can review, inspect, and resolve issues digitally.",
+                 "Eliminates paperwork and saves people hours of waiting in government offices."
              ],
-             badge="PROBLEM CONTEXT",
-             border_color=RGBColor(254, 202, 202))
+             badge="SIMPLE DEFINITION")
 
-    add_card(s2, Inches(6.9), Inches(1.8), Inches(5.6), Inches(5.0),
-             "Our Digital Automation Solution",
+    add_card(s2, Inches(6.9), Inches(1.75), Inches(5.6), Inches(5.1),
+             "Who is it Built For?",
              [
-                 "100% Paperless online citizen application & tracking pipeline.",
-                 "Real-time dynamic timeline stepper with SLA milestone status.",
-                 "Direct camera & GPS geotagged photo evidence upload via Cloudinary.",
-                 "Dedicated Officer Review & Verification Action Suite.",
-                 "Super Admin & Department CMS with role-based access control.",
-                 "Mobile-first, touch-friendly UI optimized across Desktop, Tablet & Phone."
+                 "Citizens: File complaints, apply for permits, and download certificates.",
+                 "Municipal Officers: Manage assigned ward tasks and conduct inspections.",
+                 "City Administrators: Oversee all wards, departments, staff, and city notices.",
+                 "Public Visitors: Explore city directory, public hearing notices, and interactive maps."
              ],
-             badge="PROPOSED SOLUTION",
-             border_color=RGBColor(187, 247, 208))
+             badge="AUDIENCE & USERS")
 
     # ==========================================
-    # SLIDE 3: SYSTEM ARCHITECTURE & DATA FLOW
+    # SLIDE 3: PROBLEMS WE ARE SOLVING
     # ==========================================
     s3 = prs.slides.add_slide(blank_layout)
-    add_header(s3, "High-Level System Architecture & Infrastructure", "ARCHITECTURE & DESIGN")
+    add_header(s3, "Real-World Problems We Are Solving", "THE CHALLENGE")
 
-    add_card(s3, Inches(0.8), Inches(1.8), Inches(3.6), Inches(5.0),
-             "Frontend Client Suite",
+    add_card(s3, Inches(0.8), Inches(1.75), Inches(5.6), Inches(5.1),
+             "Old / Traditional System Issues",
              [
-                 "React 18 Single Page App (SPA)",
-                 "Vite Lightning Fast Bundler",
-                 "Context API State Management",
-                 "Lucide Modern Vector Icons",
-                 "Responsive Design System (Fluid Typography, Mobile Drawer, Touch Grids)",
-                 "Vercel Edge SPA Hosting"
+                 "Long Queues: Citizens had to stand in lines for simple forms and certificates.",
+                 "No Tracking: After submitting an application, nobody knew where it was stuck.",
+                 "Unreported Damage: Potholes, broken streetlights, and garbage piles took weeks to fix.",
+                 "Lost Paperwork: Physical paper applications were frequently misplaced.",
+                 "Lack of Transparency: Citizens had no direct contact with responsible ward officers."
              ],
-             badge="PRESENTATION LAYER")
+             badge="BEFORE AUTOMATION",
+             bg_color=COLOR_ALERT_BG,
+             border_color=COLOR_ALERT_BORDER)
 
-    add_card(s3, Inches(4.85), Inches(1.8), Inches(3.6), Inches(5.0),
-             "Backend API & Services",
+    add_card(s3, Inches(6.9), Inches(1.75), Inches(5.6), Inches(5.1),
+             "How Our System Fixes Them",
              [
-                 "Django 5.x & REST Framework",
-                 "Role-Based Access Control (RBAC)",
-                 "JSON REST Endpoints for Services, Users, Grievances, Notices",
-                 "Whitenoise Static Asset Serving",
-                 "CORS & CSRF Security Policies",
-                 "Vercel Serverless Python WSGI"
+                 "Apply from Anywhere: Submit requests in 2 minutes using mobile phone or PC.",
+                 "Live Tracking ID: Watch your application move from 'Submitted' to 'Resolved'.",
+                 "Photo Proof: Click and upload live photos of road issues or garbage blackspots.",
+                 "Safe Cloud Storage: All applications are stored permanently in a secure database.",
+                 "Direct Accountability: Every action is logged with the officer's name and timestamp."
              ],
-             badge="BUSINESS LOGIC LAYER")
-
-    add_card(s3, Inches(8.9), Inches(1.8), Inches(3.6), Inches(5.0),
-             "Cloud Data & Media",
-             [
-                 "Supabase PostgreSQL (Cloud SQL)",
-                 "Relational Schema with 19 Migrations",
-                 "Cloudinary Media CDN Pipeline",
-                 "Direct HTTPS Optimized Media CDN",
-                 "Encapsulated .env Secret Security",
-                 "Automatic Daily Cloud Backups"
-             ],
-             badge="DATA & MEDIA LAYER")
+             badge="AFTER AUTOMATION",
+             bg_color=COLOR_SUCCESS_BG,
+             border_color=COLOR_SUCCESS_BORDER)
 
     # ==========================================
-    # SLIDE 4: CITIZEN EXPERIENCE & CIVIC MODULES
+    # SLIDE 4: THE 3 MAIN USER ROLES
     # ==========================================
     s4 = prs.slides.add_slide(blank_layout)
-    add_header(s4, "Citizen Portal & Civic Services Modules", "CITIZEN EXPERIENCE")
+    add_header(s4, "The 3 User Roles in the System", "USER MANAGEMENT")
 
-    add_card(s4, Inches(0.8), Inches(1.8), Inches(5.6), Inches(2.35),
-             "Roads, Potholes & Streetlights",
+    add_card(s4, Inches(0.8), Inches(1.75), Inches(3.6), Inches(5.1),
+             "1. The Citizen",
              [
-                 "FixMyCity GPS pinpointing with landmark address tracking.",
-                 "Camera / Gallery upload for visual defect evidence.",
-                 "Automatic priority classification and ward assignment."
+                 "Creates personal account in seconds.",
+                 "Applies for road repairs, birth/death records, and water connections.",
+                 "Uploads photo evidence.",
+                 "Tracks live progress status.",
+                 "Downloads official approved receipts."
              ],
-             badge="CIVIL INFRASTRUCTURE")
+             badge="CITIZEN PORTAL")
 
-    add_card(s4, Inches(6.9), Inches(1.8), Inches(5.6), Inches(2.35),
-             "Birth & Death Certificate Registry",
+    add_card(s4, Inches(4.85), Inches(1.75), Inches(3.6), Inches(5.1),
+             "2. The Municipal Officer",
              [
-                 "Digital registration with hospital verification references.",
-                 "Parent / informant identity uploads and affidavit records.",
-                 "Instant official PDF receipt download upon approval."
+                 "Dedicated officer work dashboard.",
+                 "Views all complaints in their ward.",
+                 "Inspects photo proof and GPS location.",
+                 "Takes action and adds resolution notes.",
+                 "Marks complaints as Resolved."
              ],
-             badge="VITAL STATISTICS")
+             badge="OFFICER SUITE")
 
-    add_card(s4, Inches(0.8), Inches(4.45), Inches(5.6), Inches(2.35),
-             "Water Connection & Sewerage",
+    add_card(s4, Inches(8.9), Inches(1.75), Inches(3.6), Inches(5.1),
+             "3. Super Administrator",
              [
-                 "New pipeline application with pipeline distance estimations.",
-                 "Property Khata certificate verification and bill estimates.",
-                 "Connection meter scheduling and inspection tracker."
+                 "Master control over entire portal.",
+                 "Manages officer accounts & permissions.",
+                 "Updates city corporations and ward info.",
+                 "Publishes emergency notices and alerts.",
+                 "Views real-time analytics & reports."
              ],
-             badge="WATER UTILITIES")
-
-    add_card(s4, Inches(6.9), Inches(4.45), Inches(5.6), Inches(2.35),
-             "Solid Waste & Tipper Schedules",
-             [
-                 "Live micro-route tipper timings for all city wards.",
-                 "Door-to-door wet / dry waste segregation guides.",
-                 "Garbage blackspot reporting with cleanup SLAs."
-             ],
-             badge="ENVIRONMENT & SANITATION")
+             badge="ADMIN CMS")
 
     # ==========================================
-    # SLIDE 5: OFFICER & SUPER ADMIN DASHBOARDS
+    # SLIDE 5: MAJOR CIVIC SERVICES (PART 1)
     # ==========================================
     s5 = prs.slides.add_slide(blank_layout)
-    add_header(s5, "Officer Workflow & Super Admin CMS Portals", "ADMINISTRATION & WORKFLOWS")
+    add_header(s5, "Major Civic Services: Roads & Vital Records", "SERVICES OVERVIEW")
 
-    add_card(s5, Inches(0.8), Inches(1.8), Inches(5.6), Inches(5.0),
-             "Officer Review & Inspection Suite",
+    add_card(s5, Inches(0.8), Inches(1.75), Inches(5.6), Inches(5.1),
+             "🛣️ Road, Pothole & Streetlight Reporting",
              [
-                 "Real-time Queue: Filter applications by Ward, Status, or Priority.",
-                 "Inspection Tool: Verify citizen evidence, GPS coordinates & timestamps.",
-                 "State Machine Workflow: Submitted ➔ Under Review ➔ Action Taken ➔ Resolved.",
-                 "Resolution Logging: Attach internal officer notes and resolution remarks.",
-                 "Audit Tracking: Officer identity logged with every workflow state change."
+                 "FixMyCity Feature: Report road damage, potholes, or dark streetlights.",
+                 "Visual Photo Upload: Take a photo directly from your phone camera.",
+                 "Landmark Address: Enter street name, ward number, and GPS landmark.",
+                 "Fast Response: Assigned directly to the ward civil engineering team.",
+                 "Real-time Notification: Get notified when the road is repaired."
              ],
-             badge="MUNICIPAL OFFICERS",
-             bg_color=COLOR_WHITE)
+             badge="CIVIL ENGINEERING")
 
-    add_card(s5, Inches(6.9), Inches(1.8), Inches(5.6), Inches(5.0),
-             "Super Admin Master CMS",
+    add_card(s5, Inches(6.9), Inches(1.75), Inches(5.6), Inches(5.1),
+             "📜 Birth & Death Certificate Registration",
              [
-                 "Role-Based Access Control: Manage Super Admins, Dept Admins, Officers, Citizens.",
-                 "City Corporations CMS: Manage 5 City Corporations and 198 BBMP Wards.",
-                 "Department CMS: Add/Edit municipal department directories and contacts.",
-                 "Notices & Events CMS: Publish emergency alerts, town hall schedules & gazettes.",
-                 "System Analytics: View real-time application throughput & SLA metrics."
+                 "Digital Application: Register births or deaths without visiting municipal office.",
+                 "Document Upload: Attach hospital discharge summary or identity proof.",
+                 "Digital Verification: Medical health officer reviews and approves online.",
+                 "Instant Certificate: Download verified digital certificate with official QR code."
              ],
-             badge="SUPER ADMINISTRATOR",
-             bg_color=COLOR_WHITE)
+             badge="HEALTH & VITAL RECORDS")
 
     # ==========================================
-    # SLIDE 6: PUBLIC PORTAL & INTERACTIVE GIS MAPS
+    # SLIDE 6: MAJOR CIVIC SERVICES (PART 2)
     # ==========================================
     s6 = prs.slides.add_slide(blank_layout)
-    add_header(s6, "Public Portal, Directory & Interactive GIS Mapping", "PUBLIC SERVICES")
+    add_header(s6, "Major Civic Services: Water & Waste Management", "SERVICES OVERVIEW")
 
-    add_card(s6, Inches(0.8), Inches(1.8), Inches(3.6), Inches(5.0),
-             "Interactive GIS Landmark Map",
+    add_card(s6, Inches(0.8), Inches(1.75), Inches(5.6), Inches(5.1),
+             "💧 Water Connection & Drainage Permitting",
              [
-                 "Interactive visual ward map with municipal landmarks.",
-                 "Pin Overlay Cards with location details.",
-                 "RHS 'Get Directions' route planning button.",
-                 "Custom markers for BBMP Head Office, Town Hall, Clinics & Parks."
+                 "New Connection Requests: Apply for home or commercial water pipelines.",
+                 "Property Khata Verification: Enter property details for automated verification.",
+                 "Inspection Booking: Schedule a site inspection by water board engineers.",
+                 "Transparent Pricing: Clear estimation of connection fees and water charges."
              ],
-             badge="GIS MAPPING")
+             badge="WATER UTILITY")
 
-    add_card(s6, Inches(4.85), Inches(1.8), Inches(3.6), Inches(5.0),
-             "Municipal Directory & News",
+    add_card(s6, Inches(6.9), Inches(1.75), Inches(5.6), Inches(5.1),
+             "🚚 Solid Waste & Tipper Timetable",
              [
-                 "Comprehensive directory of municipal departments and officials.",
-                 "Town hall public hearing schedules & cultural event calendars.",
-                 "Categorized official press releases and tender notices.",
-                 "Downloadable government forms and bylaws."
+                 "Ward Tipper Timetable: Check daily garbage truck arrival times in your area.",
+                 "Waste Segregation Guide: Easy tips for wet, dry, and sanitary waste separation.",
+                 "Report Garbage Blackspots: Upload photos of uncollected garbage for rapid cleaning.",
+                 "Cleanliness Drive Tracking: Updates on local sanitation and park cleanup drives."
              ],
-             badge="PUBLIC RECORDS")
-
-    add_card(s6, Inches(8.9), Inches(1.8), Inches(3.6), Inches(5.0),
-             "24/7 Citizen Helplines",
-             [
-                 "Integrated BBMP Sahaya Control Room (1533).",
-                 "Quick emergency call buttons on mobile drawer and header.",
-                 "Real-time alert marquee for weather and civic advisories.",
-                 "Public grievance escalation cell."
-             ],
-             badge="EMERGENCY CELL")
+             badge="SANITATION & CLEANLINESS")
 
     # ==========================================
-    # SLIDE 7: CLOUD INTEGRATIONS & SECURITY
+    # SLIDE 7: STEP-BY-STEP CITIZEN JOURNEY
     # ==========================================
     s7 = prs.slides.add_slide(blank_layout)
-    add_header(s7, "Cloud Integrations, Database & Security Architecture", "CLOUD INFRASTRUCTURE")
+    add_header(s7, "Step-by-Step Citizen Journey (How it Works)", "CITIZEN WORKFLOW")
 
-    add_card(s7, Inches(0.8), Inches(1.8), Inches(3.6), Inches(5.0),
-             "Supabase PostgreSQL",
+    add_card(s7, Inches(0.8), Inches(1.75), Inches(2.7), Inches(5.1),
+             "Step 1: Apply",
              [
-                 "Managed Cloud PostgreSQL instance.",
-                 "Connected via dj-database-url connection pooling.",
-                 "19 Applied migrations for users, services, grievances, CMS.",
-                 "Zero local SQLite dependencies.",
-                 "ACID compliant transactional safety."
+                 "Log in to the portal.",
+                 "Choose your civic service (e.g. Pothole repair).",
+                 "Fill in simple details in under 2 minutes."
              ],
-             badge="DATABASE LAYER")
+             badge="SUBMISSION")
 
-    add_card(s7, Inches(4.85), Inches(1.8), Inches(3.6), Inches(5.0),
-             "Cloudinary Media CDN",
+    add_card(s7, Inches(3.8), Inches(1.75), Inches(2.7), Inches(5.1),
+             "Step 2: Attach Evidence",
              [
-                 "All static images and uploads served via Cloudinary CDN.",
-                 "HTTPS global edge media acceleration.",
-                 "Zero local storage bloat on server.",
-                 "Automatic responsive image optimization and format conversion."
+                 "Upload clear photos from phone or gallery.",
+                 "Enter landmark or ward location.",
+                 "Submit your request."
              ],
-             badge="MEDIA ASSETS")
+             badge="EVIDENCE")
 
-    add_card(s7, Inches(8.9), Inches(1.8), Inches(3.6), Inches(5.0),
-             "Security & Zero Secret Leakage",
+    add_card(s7, Inches(6.8), Inches(1.75), Inches(2.7), Inches(5.1),
+             "Step 3: Track Live",
              [
-                 "All secret keys encapsulated inside protected .env files.",
-                 ".gitignore rules blocking credentials from Git repos.",
-                 "CORS & CSRF trusted origin whitelisting on production.",
-                 "Hashed user passwords and token authentication."
+                 "Get a unique Request ID (e.g., #REQ-2026-8941).",
+                 "Watch live 4-step progress bar on your phone screen."
              ],
-             badge="DEVSECOPS")
+             badge="LIVE TRACKING")
+
+    add_card(s7, Inches(9.8), Inches(1.75), Inches(2.7), Inches(5.1),
+             "Step 4: Resolved!",
+             [
+                 "Officer inspects and completes the work.",
+                 "Status updates to 'Resolved'.",
+                 "Download official completion receipt."
+             ],
+             badge="COMPLETION")
 
     # ==========================================
-    # SLIDE 8: MULTI-DEVICE RESPONSIVE ENGINEERING
+    # SLIDE 8: OFFICER INSPECTION & RESOLUTION
     # ==========================================
     s8 = prs.slides.add_slide(blank_layout)
-    add_header(s8, "Multi-Device Responsive Design Architecture", "RESPONSIVE UI/UX")
+    add_header(s8, "Officer Review & Inspection Workflow", "OFFICER EXPERIENCE")
 
-    add_card(s8, Inches(0.8), Inches(1.8), Inches(3.6), Inches(5.0),
-             "Desktop (> 1024px)",
+    add_card(s8, Inches(0.8), Inches(1.75), Inches(5.6), Inches(5.1),
+             "How Officers Manage Complaints",
              [
-                 "Widescreen 4-column card grids.",
-                 "Fixed sticky citizen dashboard sidebar navigation.",
-                 "Full horizontal navigation bar with dropdown menus.",
-                 "Expanded data tables with multi-field filtering."
+                 "Ward Queue: Officers see all incoming citizen requests organized neatly.",
+                 "Photo & Map Inspection: Check uploaded photos and GPS location before visiting.",
+                 "Status Upgrades: Move status: 'Submitted' ➔ 'Under Review' ➔ 'Action Taken'.",
+                 "Resolution Notes: Add comments explaining the repair work done.",
+                 "Mark as Complete: One-click closure when work is verified."
              ],
-             badge="DESKTOP VIEWPORT")
+             badge="INSPECTION PIPELINE")
 
-    add_card(s8, Inches(4.85), Inches(1.8), Inches(3.6), Inches(5.0),
-             "Tablet (768px – 1024px)",
+    add_card(s8, Inches(6.9), Inches(1.75), Inches(5.6), Inches(5.1),
+             "Why Officers Love It",
              [
-                 "Adaptive 2-column card layouts.",
-                 "Hamburger navigation drawer toggle.",
-                 "Horizontally scrollable category filter tabs.",
-                 "Compact modal overlays."
+                 "No Paper Files: Zero paperwork clutter on office desks.",
+                 "Priority Sorting: High-priority emergency issues appear on top.",
+                 "Clear Proof: Citizen photos prevent confusion about the exact defect.",
+                 "Audit Records: Clear proof of work done by the officer and team."
              ],
-             badge="TABLET VIEWPORT")
-
-    add_card(s8, Inches(8.9), Inches(1.8), Inches(3.6), Inches(5.0),
-             "Mobile Phone (< 768px)",
-             [
-                 "1-Column vertical stacking for easy single-thumb scrolling.",
-                 "Full-screen slide-out mobile drawer with active user status.",
-                 "17.5px root font scaling for large, readable text.",
-                 "Touch-momentum scrollable tables and 48px touch targets."
-             ],
-             badge="MOBILE VIEWPORT")
+             badge="OFFICER BENEFITS")
 
     # ==========================================
-    # SLIDE 9: PRODUCTION DEPLOYMENTS & LIVE URLS
+    # SLIDE 9: SUPER ADMIN MASTER CMS
     # ==========================================
     s9 = prs.slides.add_slide(blank_layout)
-    add_header(s9, "Production Deployments & GitHub Repository", "DEPLOYMENT & ACCESS")
+    add_header(s9, "Super Administrator Master CMS Portal", "ADMINISTRATION")
 
-    add_card(s9, Inches(0.8), Inches(1.8), Inches(5.6), Inches(2.35),
-             "Frontend Web Application",
+    add_card(s9, Inches(0.8), Inches(1.75), Inches(5.6), Inches(5.1),
+             "Full Control & Management",
              [
-                 "Production URL: https://municipality-automation-frontend.vercel.app/",
-                 "Hosting Platform: Vercel SPA Edge Network",
-                 "Framework: React 18 + Vite (Vercel rewrite routing)"
+                 "User Accounts: Add, edit, or deactivate officer and staff accounts.",
+                 "City Corporations CMS: Manage 5 City Corporations and 198 BBMP Wards.",
+                 "Department Directory: Update department contacts, head officers, and emails.",
+                 "Public Notices & Alerts: Publish city news, weather warnings, and gazettes.",
+                 "Events Management: Add town hall meetings and public events to calendar."
              ],
-             badge="FRONTEND LIVE URL",
-             bg_color=RGBColor(240, 253, 250),
-             border_color=COLOR_CYAN)
+             badge="MASTER CMS")
 
-    add_card(s9, Inches(6.9), Inches(1.8), Inches(5.6), Inches(2.35),
-             "Backend REST API",
+    add_card(s9, Inches(6.9), Inches(1.75), Inches(5.6), Inches(5.1),
+             "Real-Time City Analytics",
              [
-                 "Production URL: https://municipality-automation-backend.vercel.app/",
-                 "Hosting Platform: Vercel Python Serverless WSGI",
-                 "Framework: Django 5.x REST Framework"
+                 "Track total complaints submitted vs. resolved across all wards.",
+                 "Identify wards needing more infrastructure attention.",
+                 "Monitor average resolution time by department.",
+                 "Export performance data for council meetings."
              ],
-             badge="BACKEND LIVE API",
-             bg_color=RGBColor(240, 253, 250),
-             border_color=COLOR_CYAN)
-
-    add_card(s9, Inches(0.8), Inches(4.45), Inches(5.6), Inches(2.35),
-             "GitHub Source Code Repository",
-             [
-                 "Repository: https://github.com/pratiksha-harode005/municipality_automation.git",
-                 "Branch: main",
-                 "Includes full frontend/ and backend/ monorepo structure."
-             ],
-             badge="SOURCE CODE",
-             bg_color=RGBColor(254, 243, 199),
-             border_color=COLOR_GOLD)
-
-    add_card(s9, Inches(6.9), Inches(4.45), Inches(5.6), Inches(2.35),
-             "Cloud Database & Media",
-             [
-                 "Database: Supabase PostgreSQL (db.mkdfnmhizdaqaejmitjy.supabase.co)",
-                 "Media CDN: Cloudinary (cloudinary://.../mcizaxyv)"
-             ],
-             badge="CLOUD STORAGE",
-             bg_color=RGBColor(241, 245, 249),
-             border_color=COLOR_NAVY)
+             badge="DATA & INSIGHTS")
 
     # ==========================================
-    # SLIDE 10: FUTURE ROADMAP & INNOVATION
+    # SLIDE 10: INTERACTIVE MAP & PUBLIC FEATURES
     # ==========================================
     s10 = prs.slides.add_slide(blank_layout)
-    add_header(s10, "Future Roadmap & Innovation Potential", "FUTURE ENHANCEMENTS")
+    add_header(s10, "Interactive City Map & Public Features", "CITIZEN TOOLS")
 
-    add_card(s10, Inches(0.8), Inches(1.8), Inches(3.6), Inches(5.0),
-             "AI Pothole & Defect Detection",
+    add_card(s10, Inches(0.8), Inches(1.75), Inches(3.6), Inches(5.1),
+             "Interactive GIS Landmark Map",
              [
-                 "Computer Vision model analyzing citizen photo uploads.",
-                 "Automatic depth and severity classification.",
-                 "Auto-prioritizing critical road hazards for rapid repair."
+                 "Visual city map pinpointing key municipal landmarks.",
+                 "Pin overlays for BBMP Head Office, Town Hall, Clinics & Parks.",
+                 "RHS 'Get Directions' button opening navigation route.",
+                 "Touch-friendly for mobile maps."
              ],
-             badge="ARTIFICIAL INTELLIGENCE")
+             badge="MAPS & ROUTING")
 
-    add_card(s10, Inches(4.85), Inches(1.8), Inches(3.6), Inches(5.0),
-             "WhatsApp Civic Bot",
+    add_card(s10, Inches(4.85), Inches(1.75), Inches(3.6), Inches(5.1),
+             "City Directory & Events",
              [
-                 "File complaints directly via WhatsApp message.",
-                 "Instant status lookups by typing grievance tracking ID.",
-                 "Automated SMS/WhatsApp broadcast on grievance resolution."
+                 "Searchable directory of all ward officers and departments.",
+                 "Calendar of public council hearings and festival dates.",
+                 "Official municipal bylaws and application forms library.",
+                 "Photo gallery of city development milestones."
              ],
-             badge="CONVERSATIONAL UI")
+             badge="PUBLIC INFORMATION")
 
-    add_card(s10, Inches(8.9), Inches(1.8), Inches(3.6), Inches(5.0),
-             "IoT Smart Waste Integration",
+    add_card(s10, Inches(8.9), Inches(1.75), Inches(3.6), Inches(5.1),
+             "24/7 Helpline & Emergency",
              [
-                 "Smart bin fill-level sensors triggering tipper pickups.",
-                 "Real-time GPS tipper tracking on interactive citizen map.",
-                 "Carbon footprint & recycling incentive reward points."
+                 "BBMP Sahaya 24/7 Control Room (1533).",
+                 "Quick 1-tap call button in mobile menu drawer.",
+                 "Live alert marquee showing urgent city advisories.",
+                 "Grievance escalation cell for pending issues."
              ],
-             badge="IOT & SMART CITY")
+             badge="EMERGENCY SUPPORT")
 
     # ==========================================
-    # SLIDE 11: CONCLUSION & THANK YOU
+    # SLIDE 11: TECHNOLOGY EXPLAINED SIMPLY
     # ==========================================
     s11 = prs.slides.add_slide(blank_layout)
-    bg11 = s11.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(13.333), Inches(7.5))
-    bg11.fill.solid()
-    bg11.fill.fore_color.rgb = COLOR_NAVY
-    bg11.line.fill.background()
+    add_header(s11, "The Technology Stack (Explained Simply)", "SYSTEM ARCHITECTURE")
 
-    strip11 = s11.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(0.35), Inches(7.5))
-    strip11.fill.solid()
-    strip11.fill.fore_color.rgb = COLOR_CYAN
-    strip11.line.fill.background()
+    add_card(s11, Inches(0.8), Inches(1.75), Inches(2.7), Inches(5.1),
+             "Frontend",
+             [
+                 "React 18 & Vite.",
+                 "Builds fast, interactive web screens.",
+                 "No page reloads needed.",
+                 "Modern icons & clean visuals."
+             ],
+             badge="USER INTERFACE")
 
-    tb11 = s11.shapes.add_textbox(Inches(1.5), Inches(1.8), Inches(10.5), Inches(4.0))
-    tf11 = tb11.text_frame
-    tf11.word_wrap = True
+    add_card(s11, Inches(3.8), Inches(1.75), Inches(2.7), Inches(5.1),
+             "Backend",
+             [
+                 "Python & Django REST.",
+                 "Processes citizen applications.",
+                 "Enforces security & user roles.",
+                 "Fast serverless API."
+             ],
+             badge="LOGIC & API")
 
-    p11_1 = tf11.paragraphs[0]
-    p11_1.text = "THANK YOU!"
-    p11_1.font.size = Pt(40)
-    p11_1.font.bold = True
-    p11_1.font.color.rgb = COLOR_WHITE
-    p11_1.space_after = Pt(14)
+    add_card(s11, Inches(6.8), Inches(1.75), Inches(2.7), Inches(5.1),
+             "Cloud Database",
+             [
+                 "Supabase PostgreSQL.",
+                 "Stores all users, complaints, and records safely in cloud.",
+                 "Zero data loss risk."
+             ],
+             badge="DATABASE")
 
-    p11_2 = tf11.add_paragraph()
-    p11_2.text = "Municipal Corporation Automation Suite — Empowering Smart, Transparent & Accessible E-Governance."
-    p11_2.font.size = Pt(18)
-    p11_2.font.color.rgb = COLOR_LIGHT_CYAN
-    p11_2.space_after = Pt(28)
+    add_card(s11, Inches(9.8), Inches(1.75), Inches(2.7), Inches(5.1),
+             "Media CDN",
+             [
+                 "Cloudinary CDN.",
+                 "Stores all photo evidence & documents.",
+                 "Loads images instantly on mobile and desktop."
+             ],
+             badge="MEDIA STORAGE")
 
-    p11_3 = tf11.add_paragraph()
-    p11_3.text = "🌐 Live App: https://municipality-automation-frontend.vercel.app/\n📦 Repository: https://github.com/pratiksha-harode005/municipality_automation.git"
-    p11_3.font.size = Pt(13)
-    p11_3.font.color.rgb = RGBColor(226, 232, 240)
-    p11_3.space_after = Pt(20)
+    # ==========================================
+    # SLIDE 12: MOBILE, TABLET & LAPTOP DESIGN
+    # ==========================================
+    s12 = prs.slides.add_slide(blank_layout)
+    add_header(s12, "Designed for Mobile, Tablet & Laptop Screens", "RESPONSIVE UI/UX")
 
-    p11_4 = tf11.add_paragraph()
-    p11_4.text = "Questions & Feedback Welcome!"
-    p11_4.font.size = Pt(15)
-    p11_4.font.bold = True
-    p11_4.font.color.rgb = COLOR_GOLD
+    add_card(s12, Inches(0.8), Inches(1.75), Inches(3.6), Inches(5.1),
+             "📱 Mobile Phone View (< 768px)",
+             [
+                 "Neat single-column vertical cards.",
+                 "Big, readable 17.5px text for easy reading.",
+                 "Slide-out mobile navigation drawer with active user status.",
+                 "Large 48px touch buttons for easy tapping.",
+                 "Smooth horizontal scroll for tables."
+             ],
+             badge="MOBILE PHONES")
+
+    add_card(s12, Inches(4.85), Inches(1.75), Inches(3.6), Inches(5.1),
+             "📱 Tablet View (768px – 1024px)",
+             [
+                 "Clean 2-column card layouts.",
+                 "Hamburger drawer toggle.",
+                 "Scrollable category filter chips.",
+                 "Touch-optimized forms and modals."
+             ],
+             badge="TABLETS / IPADS")
+
+    add_card(s12, Inches(8.9), Inches(1.75), Inches(3.6), Inches(5.1),
+             "💻 Laptop / Desktop View (> 1024px)",
+             [
+                 "Full widescreen 4-column card grid.",
+                 "Fixed sticky citizen dashboard navigation bar.",
+                 "Expanded top menu bar with sub-dropdowns.",
+                 "Comprehensive administrative data tables."
+             ],
+             badge="LAPTOPS & COMPUTERS")
+
+    # ==========================================
+    # SLIDE 13: SECURITY & DATA PRIVACY
+    # ==========================================
+    s13 = prs.slides.add_slide(blank_layout)
+    add_header(s13, "Security & Data Privacy (Keeping Records Safe)", "SECURITY ARCHITECTURE")
+
+    add_card(s13, Inches(0.8), Inches(1.75), Inches(5.6), Inches(5.1),
+             "Data Protection & Privacy",
+             [
+                 "Password Hashing: Citizen and officer passwords are securely encrypted.",
+                 "Role Protection: Only authorized officers can approve requests in their ward.",
+                 "Zero Secret Leakage: All database passwords & keys are stored in secure .env files.",
+                 "Never stored in public GitHub files."
+             ],
+             badge="PROTECTION")
+
+    add_card(s13, Inches(6.9), Inches(1.75), Inches(5.6), Inches(5.1),
+             "Cloud Reliability & Backups",
+             [
+                 "Automated Cloud Backups: Database backed up continuously on Supabase.",
+                 "Secure HTTPS: All traffic encrypted with modern SSL certificates.",
+                 "Audit Logs: Records who approved which certificate and when.",
+                 "High Availability: 99.9% uptime powered by Vercel and Supabase cloud."
+             ],
+             badge="RELIABILITY")
+
+    # ==========================================
+    # SLIDE 14: FUTURE ROADMAP & INNOVATIONS
+    # ==========================================
+    s14 = prs.slides.add_slide(blank_layout)
+    add_header(s14, "Future Roadmap & Exciting Possibilities", "FUTURE INNOVATION")
+
+    add_card(s14, Inches(0.8), Inches(1.75), Inches(3.6), Inches(5.1),
+             "🤖 AI Pothole Detection",
+             [
+                 "AI analyzes citizen photos automatically.",
+                 "Measures pothole depth and hazard level.",
+                 "Auto-prioritizes dangerous road hazards for immediate repair."
+             ],
+             badge="AI INTEGRATION")
+
+    add_card(s14, Inches(4.85), Inches(1.75), Inches(3.6), Inches(5.1),
+             "💬 WhatsApp Civic Bot",
+             [
+                 "File complaints directly via WhatsApp message.",
+                 "Send photo and location in WhatsApp chat.",
+                 "Instant status check by typing Request ID."
+             ],
+             badge="WHATSAPP BOT")
+
+    add_card(s14, Inches(8.9), Inches(1.75), Inches(3.6), Inches(5.1),
+             "🔔 SMS & Voice Broadcasts",
+             [
+                 "Instant SMS alert when complaint is resolved.",
+                 "Voice call alerts for emergency flood or weather warnings.",
+                 "Local language translation (Kannada / Hindi / English)."
+             ],
+             badge="COMMUNICATION")
+
+    # ==========================================
+    # SLIDE 15: CONCLUSION & LIVE LINKS
+    # ==========================================
+    s15 = prs.slides.add_slide(blank_layout)
+    bg15 = s15.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(13.333), Inches(7.5))
+    bg15.fill.solid()
+    bg15.fill.fore_color.rgb = COLOR_NAVY
+    bg15.line.fill.background()
+
+    strip15 = s15.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(0.35), Inches(7.5))
+    strip15.fill.solid()
+    strip15.fill.fore_color.rgb = COLOR_CYAN
+    strip15.line.fill.background()
+
+    tb15 = s15.shapes.add_textbox(Inches(1.2), Inches(1.2), Inches(11.0), Inches(5.0))
+    tf15 = tb15.text_frame
+    tf15.word_wrap = True
+
+    p15_1 = tf15.paragraphs[0]
+    p15_1.text = "THANK YOU!"
+    p15_1.font.size = Pt(38)
+    p15_1.font.bold = True
+    p15_1.font.color.rgb = COLOR_WHITE
+    p15_1.space_after = Pt(12)
+
+    p15_2 = tf15.add_paragraph()
+    p15_2.text = "The Municipal Automation Portal delivers a smart, transparent, and hassle-free civic governance experience for everyone."
+    p15_2.font.size = Pt(16)
+    p15_2.font.color.rgb = COLOR_LIGHT_CYAN
+    p15_2.space_after = Pt(24)
+
+    p15_3 = tf15.add_paragraph()
+    p15_3.text = "🌐 Live Application Links:\n•  Frontend Web App:  https://municipality-automation-frontend.vercel.app/\n•  Backend REST API:  https://municipality-automation-backend.vercel.app/\n•  GitHub Repository:  https://github.com/pratiksha-harode005/municipality_automation.git"
+    p15_3.font.size = Pt(13)
+    p15_3.font.color.rgb = RGBColor(226, 232, 240)
+    p15_3.space_after = Pt(24)
+
+    p15_4 = tf15.add_paragraph()
+    p15_4.text = "Questions, Feedback & Discussion Welcome!"
+    p15_4.font.size = Pt(16)
+    p15_4.font.bold = True
+    p15_4.font.color.rgb = COLOR_GOLD
 
     output_path = os.path.abspath("Municipality_Automation_Project_Presentation.pptx")
     prs.save(output_path)
-    print(f"Presentation saved successfully at: {output_path}")
+    print(f"Presentation with 15 slides saved successfully at: {output_path}")
 
 if __name__ == "__main__":
     create_deck()
