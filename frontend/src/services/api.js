@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:5000/api/v1';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://municipality-automation-backend.vercel.app/api';
 
 export const api = {
   // Health Check
