@@ -13,13 +13,13 @@ export const initialMunicipalData = {
   heroSlides: [
     {
       id: 'slide-1',
-      url: '/bbmp-council-building.png',
+      url: 'https://res.cloudinary.com/mcizaxyv/image/upload/v1787210257/bbmp_gov/bbmp-council-building.png',
       title: 'BBMP Central Council Building',
       location: 'Hudson Circle, Central Bengaluru'
     },
     {
       id: 'slide-2',
-      url: '/bbmp-head-office.png',
+      url: 'https://res.cloudinary.com/mcizaxyv/image/upload/v1787210258/bbmp_gov/bbmp-head-office.png',
       title: 'BBMP Head Office Secretariat',
       location: 'Hudson Circle / N.R. Square, Bengaluru'
     },
@@ -378,7 +378,7 @@ The new system integrates GIS satellite property mapping with sub-registrar land
       phone: "(080) 2297 5555 / (080) 2266 0000",
       email: "commissioner@bbmp.gov.in",
       hours: "Mon - Sat: 10:00 AM - 5:30 PM (2nd & 4th Saturdays Closed)",
-      image: "/bbmp-head-office.png",
+      image: "https://res.cloudinary.com/mcizaxyv/image/upload/v1787210258/bbmp_gov/bbmp-head-office.png",
       description: "Central administrative headquarters of Bruhat Bengaluru Mahanagara Palike housing the Joint Commissioner of Revenue, Chief Commissioner, and main revenue secretariat."
     },
     {
@@ -390,7 +390,7 @@ The new system integrates GIS satellite property mapping with sub-registrar land
       phone: "+91 (080) 2221-2402",
       email: "library@bbmp.gov.in",
       hours: "Tue - Sun: 8:30 AM - 7:30 PM (Mondays Closed)",
-      image: "/state-central-library.png",
+      image: "https://res.cloudinary.com/mcizaxyv/image/upload/v1787210267/bbmp_gov/state-central-library.jpg",
       description: "Historic red brick library building inside Cubbon Park holding over 300,000 reference books, digital archives, and quiet study halls."
     },
     {
@@ -426,7 +426,7 @@ The new system integrates GIS satellite property mapping with sub-registrar land
       phone: "+91 (080) 2286-4065",
       email: "parks.cubbon@bbmp.gov.in",
       hours: "Daily: 5:30 AM - 8:00 PM (Vehicle-Free Sundays)",
-      image: "/cubbon-park-aerial.png",
+      image: "https://res.cloudinary.com/mcizaxyv/image/upload/v1787210260/bbmp_gov/cubbon-park-aerial.jpg",
       description: "300-acre green lung in the heart of Bengaluru featuring 6,000+ trees, bamboo groves, lotus ponds, and heritage monuments."
     },
     {
@@ -438,7 +438,7 @@ The new system integrates GIS satellite property mapping with sub-registrar land
       phone: "+91 (080) 2222-3344",
       email: "townhall@bbmp.gov.in",
       hours: "Mon - Sat: 9:00 AM - 6:00 PM",
-      image: "/bengaluru-town-hall.png",
+      image: "https://res.cloudinary.com/mcizaxyv/image/upload/v1787210259/bbmp_gov/bengaluru-town-hall.jpg",
       description: "Neoclassical heritage civic building constructed in 1935 hosting municipal council sessions, public forums, and cultural conventions."
     },
     {
@@ -450,7 +450,7 @@ The new system integrates GIS satellite property mapping with sub-registrar land
       phone: "+91 (080) 2657-1921",
       email: "horticulture@bbmp.gov.in",
       hours: "Daily: 6:00 AM - 7:00 PM",
-      image: "/lalbagh-glass-house.png",
+      image: "https://res.cloudinary.com/mcizaxyv/image/upload/v1787210263/bbmp_gov/lalbagh-glass-house.jpg",
       description: "240-acre botanical garden established in 1760 featuring a century-old Glass House, bonsai gardens, and serene lake."
     },
     {
@@ -581,7 +581,7 @@ The new system integrates GIS satellite property mapping with sub-registrar land
       name: "Sri Maheshwar Rao M, I.A.S",
       position: "Chief Commissioner - GBA and Administrator - All Bengaluru City Corporations",
       department: "Greater Bengaluru Authority (GBA) & BBMP",
-      portrait: "/maheshwar-rao.png",
+      portrait: "https://res.cloudinary.com/mcizaxyv/image/upload/v1787210265/bbmp_gov/maheshwar-rao.png",
       phone: "(080) 2297 5555 / (080) 2266 0000",
       email: "comm@bbmp.gov.in",
       bio: "Chief Executive Officer presiding over executive administration, civic infrastructure execution, zone administration, and municipal governance across Greater Bengaluru.",
@@ -593,7 +593,7 @@ The new system integrates GIS satellite property mapping with sub-registrar land
       name: "Shri. D.K. Shivakumar",
       position: "Hon'ble Deputy Chief Minister & Minister for Greater Bengaluru Development",
       department: "Government of Karnataka",
-      portrait: "/dk-shivakumar.png",
+      portrait: "https://res.cloudinary.com/mcizaxyv/image/upload/v1787210260/bbmp_gov/dk-shivakumar.png",
       phone: "(080) 2225 1234",
       email: "dcm@karnataka.gov.in",
       bio: "Hon'ble Deputy Chief Minister guiding state policies, urban development, lake restoration, Metro corridors, and infrastructure growth for Greater Bengaluru.",
@@ -605,7 +605,7 @@ The new system integrates GIS satellite property mapping with sub-registrar land
       name: "Sri Munish Moudgil, I.A.S",
       position: "Special Commissioner (Revenue & IT)",
       department: "Revenue & Information Technology",
-      portrait: "/munish-moudgil.png",
+      portrait: "https://res.cloudinary.com/mcizaxyv/image/upload/v1787210265/bbmp_gov/munish-moudgil.png",
       phone: "+91 (080) 2297-5520",
       email: "spcomm.revenue@bbmp.gov.in",
       bio: "Oversees BBMP property tax SAS e-Khata digital reforms, revenue collection, IT automation, and citizen service portals.",
@@ -617,7 +617,7 @@ The new system integrates GIS satellite property mapping with sub-registrar land
       name: "Sri Nitish K, I.A.S",
       position: "Special Commissioner (Health & Education) & Director of Municipal Administration",
       department: "Welfare, Health & Education",
-      portrait: "/nitish-k.png",
+      portrait: "https://res.cloudinary.com/mcizaxyv/image/upload/v1787210266/bbmp_gov/nitish-k.png",
       phone: "(080) 2266 0000",
       email: "spcomm.health@bbmp.gov.in",
       bio: "Supervises 243 ward-level Namma Clinics, GBA municipal primary & secondary schools, maternal & child health centers, and urban social welfare schemes.",
@@ -629,7 +629,7 @@ The new system integrates GIS satellite property mapping with sub-registrar land
       name: "Smt. Sushama Godbole, I.A.S",
       position: "Special Commissioner (FECCM, Election, Admin & Disaster Management)",
       department: "Admin & Disaster Management",
-      portrait: "/sushama-godbole.jpg",
+      portrait: "https://res.cloudinary.com/mcizaxyv/image/upload/v1787210268/bbmp_gov/sushama-godbole.jpg",
       phone: "+91 (080) 2297-5540",
       email: "spcomm.admin@bbmp.gov.in",
       bio: "Leads election administration, disaster management control room, public relations, and inter-departmental coordination.",
@@ -641,7 +641,7 @@ The new system integrates GIS satellite property mapping with sub-registrar land
       name: "Sri Venkatachalapathy R, I.A.S",
       position: "Special Commissioner (Welfare, Health & Education)",
       department: "Welfare, Health & Education",
-      portrait: "/venkatachalapathy.png",
+      portrait: "https://res.cloudinary.com/mcizaxyv/image/upload/v1787210269/bbmp_gov/venkatachalapathy.png",
       phone: "+91 (080) 2297-5550",
       email: "spcomm.health@bbmp.gov.in",
       bio: "Supervises BBMP Namma Clinics, public health infrastructure, school education programs, and social welfare schemes.",
@@ -1110,7 +1110,7 @@ The new system integrates GIS satellite property mapping with sub-registrar land
       time: "10:00 AM – 1:00 PM",
       location: "Historic Bengaluru Town Hall, Hudson Circle",
       address: "Hudson Circle, Bengaluru, Karnataka 560002",
-      image: "/bengaluru-town-hall.png",
+      image: "https://res.cloudinary.com/mcizaxyv/image/upload/v1787210259/bbmp_gov/bengaluru-town-hall.jpg",
       organizer: "Chief Commissioner Secretariat & GBA Executive Council",
       hostRole: "Presiding Municipal Authority & City Council Secretariat",
       hostContact: "commissioner-townhall@bbmp.gov.in • Toll-Free Helpline: 1533 / 080-22660000",
@@ -1146,7 +1146,7 @@ The new system integrates GIS satellite property mapping with sub-registrar land
       time: "7:30 AM – 11:30 AM",
       location: "Cubbon Park & Bamboo Sanctuaries, Kasturba Road",
       address: "Kasturba Road, Bengaluru, Karnataka 560001",
-      image: "/cubbon-park-aerial.png",
+      image: "https://res.cloudinary.com/mcizaxyv/image/upload/v1787210260/bbmp_gov/cubbon-park-aerial.jpg",
       organizer: "GBA Forest Cell & Urban Volunteer Eco-Clubs",
       hostRole: "Urban Forestry Division & Environmental Stewardship Council",
       hostContact: "forestcell@bbmp.gov.in • Volunteer WhatsApp: +91 94806 85210",
@@ -1181,7 +1181,7 @@ The new system integrates GIS satellite property mapping with sub-registrar land
       time: "9:00 AM – 6:00 PM",
       location: "State Central Library Campus, Cubbon Park",
       address: "State Central Library Campus, Cubbon Park, Bengaluru 560001",
-      image: "/state-central-library.png",
+      image: "https://res.cloudinary.com/mcizaxyv/image/upload/v1787210267/bbmp_gov/state-central-library.jpg",
       organizer: "State Central Library & Municipal Heritage Division",
       hostRole: "Department of Public Libraries & Cultural Heritage Directorate",
       hostContact: "heritage-arts@bbmp.gov.in • Phone: 080-22212133",
@@ -1216,7 +1216,7 @@ The new system integrates GIS satellite property mapping with sub-registrar land
       time: "8:30 AM – 7:00 PM",
       location: "Lalbagh Botanical Garden Glass House Grounds, Mavalli",
       address: "Mavalli, Bengaluru, Karnataka 560004",
-      image: "/lalbagh-glass-house.png",
+      image: "https://res.cloudinary.com/mcizaxyv/image/upload/v1787210263/bbmp_gov/lalbagh-glass-house.jpg",
       organizer: "GBA Horticulture Wing & Mysore Horticultural Society",
       hostRole: "Horticulture Department & Botanical Research Wing",
       hostContact: "lalbagh-show@bbmp.gov.in • Information Kiosk: 080-26570181",
@@ -1286,7 +1286,7 @@ The new system integrates GIS satellite property mapping with sub-registrar land
       time: "10:30 AM – 3:30 PM",
       location: "BBMP Head Office Secretariat, NR Square, Bengaluru",
       address: "NR Square, Bengaluru, Karnataka 560002",
-      image: "/bbmp-head-office.png",
+      image: "https://res.cloudinary.com/mcizaxyv/image/upload/v1787210258/bbmp_gov/bbmp-head-office.png",
       organizer: "Joint Commissioner Secretariat & Revenue Division",
       hostRole: "Municipal Secretariat & Digital Governance Taskforce",
       hostContact: "secretariat-council@bbmp.gov.in • Council Office: 080-22221188",

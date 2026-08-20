@@ -52,7 +52,7 @@ export const Header = ({ currentPath = '/', onNavigate }) => {
               title="Kalpanaaa Govt Official Portal"
             >
               <img 
-                src="/images/kalyanaaa-govt-logo.png" 
+                src="https://res.cloudinary.com/mcizaxyv/image/upload/v1787210271/bbmp_gov/kalyanaaa-govt-logo.png" 
                 alt="Kalpanaaa Govt Official Logo" 
                 className="header-brand-logo-img"
               />

@@ -10,13 +10,13 @@ export const Hero = ({ onNavigate }) => {
   const defaultHeroSlides = [
     {
       id: 'slide-1',
-      url: '/bbmp-council-building.png',
+      url: 'https://res.cloudinary.com/mcizaxyv/image/upload/v1787210257/bbmp_gov/bbmp-council-building.png',
       title: 'BBMP Central Council Building',
       location: 'Hudson Circle, Central Bengaluru'
     },
     {
       id: 'slide-2',
-      url: '/bbmp-head-office.png',
+      url: 'https://res.cloudinary.com/mcizaxyv/image/upload/v1787210258/bbmp_gov/bbmp-head-office.png',
       title: 'BBMP Head Office Secretariat',
       location: 'Hudson Circle / N.R. Square, Bengaluru'
     },

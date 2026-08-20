@@ -162,7 +162,7 @@ export const AboutPage = ({ onNavigate }) => {
           {/* Right Image Showcase with Ambient Cyan Glow */}
           <div style={{ position: 'relative', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 20px 45px rgba(0, 139, 149, 0.22), 0 10px 20px rgba(11, 47, 69, 0.18)', border: '2px solid rgba(255, 255, 255, 0.8)' }}>
             <img 
-              src="/bbmp-head-office.png" 
+              src="https://res.cloudinary.com/mcizaxyv/image/upload/v1787210258/bbmp_gov/bbmp-head-office.png" 
               alt="BBMP Head Office Secretariat Bengaluru" 
               style={{ width: '100%', height: '460px', objectFit: 'cover', display: 'block', transition: 'transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)' }}
               onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.06)'}
