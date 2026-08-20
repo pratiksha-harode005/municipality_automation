@@ -1,0 +1,21 @@
+# Environment variables
+.env
+.env.*
+*.env
+!.env.example
+
+# Python cache & bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Database & media
+db.sqlite3
+db.sqlite3-journal
+*.sqlite3
+media/
+staticfiles/
+*.log
+
+# Vercel
+.vercel/

@@ -1,0 +1,154 @@
+import React, { useState } from 'react';
+import { Breadcrumb } from '../components/Breadcrumb';
+import { Building2, MapPin, Phone, Layers, Search, ArrowRight } from 'lucide-react';
+import { useMunicipalData } from '../context/DataContext';
+
+export const CityCorporationsPage = ({ onNavigate }) => {
+  const { data } = useMunicipalData();
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const corporations = data.cityCorporations || [];
+
+  const filteredCorps = corporations.filter(c => {
+    const term = searchTerm.toLowerCase();
+    return c.name.toLowerCase().includes(term) ||
+           c.zones.toLowerCase().includes(term) ||
+           c.headquarters.toLowerCase().includes(term);
+  });
+
+  return (
+    <div id="main-content">
+      {/* 1. Hero Banner */}
+      <div className="page-hero">
+        <div className="container">
+          <Breadcrumb items={[{ label: 'Bengaluru City Corporations' }]} onNavigate={onNavigate} />
+          <h1 className="page-hero-title">Greater Bengaluru City Corporations</h1>
+          <p style={{ color: '#cbd5e1', fontSize: '1.1rem', maxWidth: '680px' }}>
+            Greater Bengaluru Authority (GBA) municipal jurisdiction divided into 5 specialized City Corporations for streamlined civic governance, ward administration, and infrastructure development.
+          </p>
+        </div>
+      </div>
+
+      <section style={{ padding: '3.5rem 0', background: 'var(--color-bg-body)' }}>
+        <div className="container">
+
+          {/* Search Box */}
+          <div style={{
+            background: 'white',
+            padding: '1.25rem 1.5rem',
+            borderRadius: '10px',
+            boxShadow: 'var(--shadow-sm)',
+            border: '1px solid var(--color-border)',
+            marginBottom: '2.5rem',
+            display: 'flex',
+            gap: '1rem',
+            alignItems: 'center'
+          }}>
+            <div style={{ flex: 1, position: 'relative' }}>
+              <input 
+                type="text" 
+                placeholder="Search corporation name (e.g. Central, North, South, East, West) or zone..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                style={{ width: '100%', padding: '0.65rem 1rem 0.65rem 2.3rem', borderRadius: '8px', border: '1px solid var(--color-border)', fontSize: '0.9rem', outline: 'none' }}
+              />
+              <Search size={16} style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)' }} />
+            </div>
+
+            <div style={{ fontSize: '0.875rem', color: 'var(--color-text-muted)', fontWeight: 600 }}>
+              Showing {filteredCorps.length} City Corporation{filteredCorps.length !== 1 ? 's' : ''}
+            </div>
+          </div>
+
+          {/* 5 City Corporations Grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '2rem' }}>
+            {filteredCorps.map((corp, index) => (
+              <div 
+                key={corp.id}
+                onClick={() => onNavigate(`/city-corporations/${corp.slug}`)}
+                style={{
+                  background: '#ffffff',
+                  borderRadius: '12px',
+                  border: '1px solid var(--color-border)',
+                  overflow: 'hidden',
+                  boxShadow: '0 4px 14px rgba(11, 47, 69, 0.06)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  cursor: 'pointer',
+                  transition: 'transform 0.25s ease, box-shadow 0.25s ease'
+                }}
+              >
+                {/* Cover Image */}
+                <div style={{ position: 'relative', height: '190px', overflow: 'hidden' }}>
+                  <img 
+                    src={corp.image} 
+                    alt={corp.name}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                  />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(11,47,69,0.85) 0%, transparent 60%)' }} />
+                  
+                  <span style={{ position: 'absolute', top: '12px', right: '12px', background: '#008b95', color: '#ffffff', fontSize: '0.75rem', fontWeight: 800, padding: '0.3rem 0.7rem', borderRadius: '20px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    {corp.shortCode}
+                  </span>
+
+                  <span style={{ position: 'absolute', bottom: '12px', left: '16px', background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(6px)', color: '#ffffff', fontSize: '0.8rem', fontWeight: 700, padding: '0.2rem 0.65rem', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.3)' }}>
+                    {corp.wards} Municipal Wards
+                  </span>
+                </div>
+
+                {/* Content */}
+                <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--color-secondary)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.35rem' }}>
+                    Corporation {index + 1} of 5
+                  </div>
+                  
+                  <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-primary)', marginBottom: '0.75rem', fontFamily: 'var(--font-sans)' }}>
+                    {corp.name}
+                  </h3>
+
+                  <p style={{ fontSize: '0.9rem', color: 'var(--color-text-main)', lineHeight: '1.55', marginBottom: '1.25rem' }}>
+                    {corp.description}
+                  </p>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', background: '#f8fafc', padding: '1rem', borderRadius: '8px', border: '1px solid #e2e8f0', marginBottom: '1.25rem', fontSize: '0.85rem' }}>
+                    <div style={{ display: 'flex', gap: '0.5rem', color: 'var(--color-text-main)' }}>
+                      <MapPin size={16} style={{ color: 'var(--color-secondary)', flexShrink: 0, marginTop: '2px' }} />
+                      <span><strong>HQ:</strong> {corp.headquarters}</span>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '0.5rem', color: 'var(--color-text-main)' }}>
+                      <Layers size={16} style={{ color: 'var(--color-secondary)', flexShrink: 0, marginTop: '2px' }} />
+                      <span><strong>Zones Covered:</strong> {corp.zones}</span>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '0.5rem', color: 'var(--color-text-main)' }}>
+                      <Phone size={16} style={{ color: 'var(--color-secondary)', flexShrink: 0 }} />
+                      <span><strong>Control Room:</strong> {corp.phone}</span>
+                    </div>
+                  </div>
+
+                  <div style={{ marginTop: 'auto', paddingTop: '1rem', borderTop: '1px solid var(--color-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>
+                      Official Zonal Domain
+                    </span>
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onNavigate(`/city-corporations/${corp.slug}`);
+                      }}
+                      style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', background: 'none', border: 'none', color: 'var(--color-secondary)', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer' }}
+                    >
+                      <span>Zonal Services & Ward Details</span>
+                      <ArrowRight size={14} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+    </div>
+  );
+};
