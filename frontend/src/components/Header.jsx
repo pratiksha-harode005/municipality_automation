@@ -39,7 +39,7 @@ export const Header = ({ currentPath = '/', onNavigate, onToggleMobileMenu }) =>
 
       {/* NAVBAR */}
       <nav className="primary-nav">
-        <div className="container nav-container">
+        <div className="nav-container">
           
           {/* Left Side Official Kalyan Healthcare Logo */}
           <div className="header-brand-wrap">
